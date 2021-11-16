@@ -6,12 +6,12 @@ class App extends React.Component<any,any> {
     super(props);
     this.state = {
       one :0,
-      isOne :false,
+      isOne :true,
       two : 0,
-      isTwo : false,
+      isTwo : true,
       three : 0,
-      isThree : false,
-      count: 0,
+      isThree : true,
+      count: 3,
       hasil : 0,
       errorText: ""
     };
@@ -65,34 +65,32 @@ class App extends React.Component<any,any> {
       {
         index:0,
         name: "one",
-        isChecked : 0,
         value : 0
       },
       {
         index:1,
         name: "two",
-        isChecked : 0,
         value : 0
       },
       {
         index: 2,
         name: "three",
-        isChecked : 0,
         value : 0
       }
     ];
     
     return (
-      <div>
+      <div className="parent">
         {arrs.map(a => 
-          <div>
+          <div key={a.index}>
             <input
               name={a.name}
+              id={a.name + "-text"}
               type="number"
               defaultValue={a.value}
               onChange={this.handleInputChange} 
             />
-            <Checkbox name={a.name}
+            <Checkbox name={a.name} id={a.name + "-check"}
               count={this.count.bind(this)} />
           </div>
         
@@ -114,6 +112,7 @@ class App extends React.Component<any,any> {
           /
         </button>
         <div>Hasil : {this.state.hasil}</div>
+        <div>{this.state.errorText}</div>
       </div>
     );
   }
@@ -128,9 +127,10 @@ class App extends React.Component<any,any> {
   }
 
   handleClick (operation:any) {
-    console.log(this.state);
-
     if(this.state.count > 1) {
+      this.setState({
+        errorText: ""
+      });
       if(operation === "plus") {
         this.setState({
           hasil: (this.state.isOne ? parseFloat(this.state.one) : 0) + 
@@ -158,7 +158,8 @@ class App extends React.Component<any,any> {
       }
     } else {
       this.setState({
-        errorText: ""
+        hasil: "-",
+        errorText: "Minimal checklist adalah 2"
       });
     }
   }
@@ -168,6 +169,7 @@ export default App;
 
 interface IChildComponentProps extends React.Props<any> {
   name: any
+  id: any
   count:any
 }
 
@@ -175,7 +177,7 @@ class Checkbox extends React.Component <IChildComponentProps, any> {
   constructor(props:any) {
     super(props)
     this.state ={
-      checked: false,
+      checked: true,
       name: "",
     }
   }
@@ -191,7 +193,7 @@ class Checkbox extends React.Component <IChildComponentProps, any> {
   }
   render () {
     return (
-          <input type='checkbox' checked={this.state.checked} onChange={() => this.handleCheck()}/>
+      <input type='checkbox' id={this.props.id} checked={this.state.checked} onChange={() => this.handleCheck()}/>
     )
   }
 }

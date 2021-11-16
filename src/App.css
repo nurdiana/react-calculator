@@ -28,6 +28,25 @@
   color: #61dafb;
 }
 
+
+.parent {
+  margin : 30px;
+}
+
+.parent div {
+  margin-bottom: 10px;
+}
+
+.parent input {
+  padding: 5px;
+}
+
+.parent button {
+  margin: 0 10px 10px 0;
+  width: 25px;
+  height: 25px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
