@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 
-class App extends React.Component {
-  constructor(props) {
+class App extends React.Component<any,any> {
+  constructor(props:any) {
     super(props);
     this.state = {
       one :0,
@@ -13,13 +13,14 @@ class App extends React.Component {
       isThree : false,
       count: 0,
       hasil : 0,
+      errorText: ""
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  count (checked, name) {
-    let { count } = this.state
+  count (checked:any, name:any) {
+    let { count } :any = this.state
     if (checked) {
       if(name === "one") {
         this.setState({
@@ -116,9 +117,9 @@ class App extends React.Component {
       </div>
     );
   }
-  handleInputChange(event) {
+  handleInputChange(event:any) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value:any = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
@@ -126,7 +127,7 @@ class App extends React.Component {
     });
   }
 
-  handleClick (operation) {
+  handleClick (operation:any) {
     console.log(this.state);
 
     if(this.state.count > 1) {
@@ -156,18 +157,26 @@ class App extends React.Component {
         });
       }
     } else {
-      this.state.error = ""
+      this.setState({
+        errorText: ""
+      });
     }
   }
 }
 
 export default App;
 
-class Checkbox extends React.Component {
-  constructor(props) {
+interface IChildComponentProps extends React.Props<any> {
+  name: any
+  count:any
+}
+
+class Checkbox extends React.Component <IChildComponentProps, any> {
+  constructor(props:any) {
     super(props)
     this.state ={
-      checked: false
+      checked: false,
+      name: "",
     }
   }
   handleCheck () {
